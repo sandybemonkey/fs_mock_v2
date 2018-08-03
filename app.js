@@ -1,27 +1,27 @@
 'use strict';
+import express from 'express';
+import logger from 'morgan';
+import session from 'express-session';
 
-const express = require('express');
+import config from './config/config.json';
+import defaultRoute from './routes/index';
+import logingRoute from './routes/login';
+import callbackRoute from './routes/callback';
+import profileRoute from './routes/profile';
+
+
 const app = express();
-const session = require('express-session');
-const config = require('./config/config.json');
-const defaultRoute = require('./routes/index');
-const logingRoute = require('./routes/login');
-const callbackRoute = require('./routes/callback');
-const profileRoute = require('./routes/profile');
+const port = process.env.PORT || '3000'
 
-/**
- * view engine
- */
+if (process.env.NODE_ENV !== 'test') {
+    app.use(logger('dev'));
+}
+
 app.set('view engine', 'ejs');
+app.set('port', port);
 
-/**
- * Static files
- */
+
 app.use(express.static('public'));
-
-/**
- * session
- */
 app.use(session({
     secret: config.SESSION_SECRET,
     resave: true,
@@ -29,15 +29,12 @@ app.use(session({
     cookie: { secure: true }
 }));
 
-/**
- * Routes
- */
+
 app.use('/', defaultRoute);
 app.use('/login', logingRoute);
 app.use('/callback', callbackRoute);
 app.use('/profile', profileRoute);
 
-//starting server
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
-});
+const server = app.listen(port);
+
+export default server;

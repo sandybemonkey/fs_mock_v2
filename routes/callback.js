@@ -43,7 +43,7 @@ router.get('/', function(req, res) {
                 axios({
                     method: 'GET',
                     headers: {"Authorization" : "Bearer " + tokenData.access_token },
-                    url: 'http://localhost:4000',
+                    url: 'http://localhost:4000/revenu-fiscal-de-reference',
                 }).catch( err => {
                    console.error(err.message);
                 })
