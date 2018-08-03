@@ -39,8 +39,9 @@ router.get('/', function(req, res) {
                 return response.data;
             })
             .then( tokenData => {
+                console.log(tokenData)
                 axios({
-                    method: 'POST',
+                    method: 'GET',
                     headers: {"Authorization" : "Bearer " + tokenData.access_token },
                     url: 'http://localhost:4000',
                 }).catch( err => {
