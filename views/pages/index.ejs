@@ -1,19 +1,26 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" integrity="sha256-zIG416V1ynj3Wgju/scU80KAEWOsO5rRLfVyRDuOv7Q=" crossorigin="anonymous" />
-    <title>FC: Index</title>
-</head>
-<body>
-    <div class="container has-text-centered">
-        <!-- FC btn -->
-        <a href="/login">
-            <img src="img/FCboutons-10.png" alt="">
-        </a>
+<% include ../includes/header.ejs %>
+<section class="hero is-link is-fullheight">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Avec le Guichet des Chiroquois vous pouvez :
+            </h1>
+            <div class="subtitle">
+                <ul>
+                    <li>Accéder aux différentes démarches administratives en ligne de la ville de Paris</li>
+                    <li>Retouver l'historique de vos demandes dans votre espace personnel</li>
+                    <li>Etre informé de l'état d'avancement de l'instruction de vos demandes</li>
+                </ul>
+                <h4>Gagnez du temps dans la réalisation de vos démarches en vous connectant par FranceConnect!</h4>
+                <p>Connectez vous à l'administration <b>en toute sécurité</b>, <b>sans créer de nouveau compte</b>.</p>
+            </div>
+            <div class="container has-text-centered">
+                <!-- FC btn -->
+                <a href="/login">
+                    <img src="img/FCboutons-10.png" alt="">
+                </a>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</section>
+<% include ../includes/footer.ejs %>
