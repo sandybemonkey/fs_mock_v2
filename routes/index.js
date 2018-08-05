@@ -1,11 +1,8 @@
-'use strict';
+import express from 'express';
+import indexController from '../controllers/indexController';
 
-const express = require('express');
 const router = express.Router();
 
-// index page with fc button
-router.get('/', (req, res) => {
-    res.render('pages/index');
-});
+router.get('/', indexController.home);
 
 module.exports = router;
