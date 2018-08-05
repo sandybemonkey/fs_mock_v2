@@ -3,8 +3,18 @@ import querystring from "querystring";
 import getUserHelper from "./getUser";
 import config from '../config/config.json';
 
+/**
+ * Set this to true if you want to send token to data provider example
+ * @type {boolean}
+ */
 const sendTokenToFD = false;
 
+/**
+ * Get the Access token from France Connect
+ * @param res
+ * @param queryCode
+ * @returns {Promise<void>}
+ */
 exports.getAccessToken = async (res, queryCode) => {
   const tokenUrl = config.TOKEN_URL;
   const redirectUrl = config.REDIRECT_URL;
@@ -33,15 +43,24 @@ exports.getAccessToken = async (res, queryCode) => {
     .then(response => response.data)
     .then((tokenData) => {
       if (sendTokenToFD) {
+        /**
+         * Request to the Data Provider Example
+         * @see {@link https://github.com/sandybemonkey/fd_mock }
+         */
         axios({
           method: 'GET',
           headers: {Authorization: `Bearer ${tokenData.access_token}`},
-          url: 'http://localhost:4000/revenu-fiscal-de-reference',
+          url: config.DATA_PROVIDER_EXAMPLE_URL,
         }).catch(err => {
           res.send(err.message);
         });
       }
 
+      /**
+       * Get the user information
+       * @param {string} token - access token send by France Connect.
+       * @param {object} response: use to send the user to the profil page.
+       */
       getUserHelper.getUser(tokenData.access_token, res);
     })
     .catch(err => {

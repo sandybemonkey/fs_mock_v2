@@ -1,19 +1,25 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css" integrity="sha256-zIG416V1ynj3Wgju/scU80KAEWOsO5rRLfVyRDuOv7Q=" crossorigin="anonymous" />
-    <title>FC: Index</title>
-</head>
-<body>
-    <div class="container has-text-centered">
-        <!-- FC btn -->
-        <a href="/login">
-            <img src="img/FCboutons-10.png" alt="">
-        </a>
+<% include ../includes/header %>
+<section class="hero is-medium is-primary is-bold">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                <%= title %>
+            </h1>
+            <br>
+            <h2 class="subtitle">
+                Accéder aux différentes démarches administratives en ligne de la ville de <%= title %>
+            </h2>
+            <h4 class="subtitle">Gagnez du temps dans la réalisation de vos démarches en vous connectant par FranceConnect!</h4>
+            <p class="subtitle">Connectez vous à l'administration <b>en toute sécurité</b>, <b>sans créer de nouveau compte</b>.</p>
+            <p>**** Ceci est un example permettant de visualiser la cinematique de connection pour un fournisseur de service. ****</p>
+        </div>
+        <br>
+        <div class="container has-text-centered">
+            <!-- FC btn -->
+            <a href="/login">
+                <img src="img/FCboutons-10.png" alt="">
+            </a>
+        </div>
     </div>
-</body>
-</html>
+</section>
+<% include ../includes/footer %>

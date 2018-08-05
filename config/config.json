@@ -8,5 +8,6 @@
   "REDIRECT_URL": "http://localhost:3000/callback",
   "SCOPE": "openid profile birth",
   "STATE": "customState11",
-  "NONCE": "customNone11"
+  "NONCE": "customNone11",
+  "DATA_PROVIDER_EXAMPLE_URL": "http://localhost:4000/revenu-fiscal-de-reference"
 }

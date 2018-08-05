@@ -1,3 +1,6 @@
 exports.home = (req, res) => {
-  res.render('pages/index');
+  const title = "Ville de Chilly-Mazarin";
+  res.render('pages/index', {
+    title
+  });
 };

@@ -3,8 +3,8 @@ import querystring from 'querystring';
 import getAccessTokenHelper from '../helpers/getAccessToken';
 
 exports.getData = (req, res) => {
-  //if code param exist
-  if (req.query.code) {
-    getAccessTokenHelper.getAccessToken(res, req.query.code);
+  if (!req.query.code) {
+    res.send("Code is required to get the Access token")
   }
+  getAccessTokenHelper.getAccessToken(res, req.query.code);
 };
