@@ -6,5 +6,7 @@
   "CLIENT_SECRET": "c48ff5ae96e870f507507555f7bc4dd361d2aac31df219fe6e92bbcca65f73f5",
   "SECRET_KEY": "8f373c6e6a48ce0f5931f414b6739e4e0aa82eda20a083dc5c0522b6c691b17b",
   "REDIRECT_URL": "http://localhost:3000/callback",
-  "SESSION_SECRET": "bigSecret07"
+  "SCOPE": "openid profile birth",
+  "STATE": "customState11",
+  "NONCE": "customNone11"
 }
