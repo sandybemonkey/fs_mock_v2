@@ -1,5 +1,13 @@
+/**
+ * Making the user info data available.
+ * @see @link{ https://partenaires.franceconnect.gouv.fr/fcp/fournisseur-service# }
+ */
 const userProfil = {};
 
+/**
+ * Get and set the userInfo values.
+ * @param userInfo
+ */
 exports.getUserInfo = (userInfo) => {
   if (userInfo) {
     userProfil.name = userInfo.given_name;
@@ -12,4 +20,7 @@ exports.getUserInfo = (userInfo) => {
   }
 };
 
+/**
+ * Send back the userInfo value.
+ */
 exports.sendUserInfo = () => userProfil;

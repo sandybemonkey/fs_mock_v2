@@ -1,9 +1,14 @@
+/**
+ * Call to the userInfo API endpoint.
+ * @see @link{ https://partenaires.franceconnect.gouv.fr/fcp/fournisseur-service# }
+ */
+
 import axios from "axios";
-import userInfosHelper from "./getUserInfo";
+import userInfosHelper from "./userInfo";
 import config from '../config/config.json';
 
 exports.getUser = async (token, res) => {
-  //request header
+  // Set request header
   const headerConfig = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -11,6 +16,7 @@ exports.getUser = async (token, res) => {
   };
   await axios.get(config.USERINFO_URL, headerConfig)
     .then(response => {
+      // Helper to set userInfo value available to the profile page.
       userInfosHelper.getUserInfo(response.data);
       res.redirect('profile');
     })

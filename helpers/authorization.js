@@ -1,3 +1,7 @@
+/**
+ * Format the url use in the redirection call to the France Connect Authorization API endpoint.
+ * @see @link{ https://partenaires.franceconnect.gouv.fr/fcp/fournisseur-service# }
+ */
 const config = require('./../config/config.json');
 
 exports.getAuth = () => `${config.AUTHORIZATION_URL}?response_type=code`
