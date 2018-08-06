@@ -9,15 +9,18 @@ const userProfil = {};
  * @param userInfo
  */
 exports.getUserInfo = (userInfo) => {
-  if (userInfo) {
-    userProfil.name = userInfo.given_name;
-    userProfil.lastName = userInfo.family_name;
-    userProfil.username = userInfo.preferred_username;
-    userProfil.gender = userInfo.gender;
-    userProfil.birthdate = userInfo.birthdate;
-    userProfil.birthplace = userInfo.birthplace;
-    userProfil.country = userInfo.birthcountry;
+  if (!userInfo) {
+    console
+      .send('400')
+      .error('No user information found, can set userInfo.')
   }
+  userProfil.name = userInfo.given_name;
+  userProfil.lastName = userInfo.family_name;
+  userProfil.username = userInfo.preferred_username;
+  userProfil.gender = userInfo.gender;
+  userProfil.birthdate = userInfo.birthdate;
+  userProfil.birthplace = userInfo.birthplace;
+  userProfil.country = userInfo.birthcountry;
 };
 
 /**
