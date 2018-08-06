@@ -11,7 +11,7 @@ chai.use(sinonChai);
 
 const assert = chai.assert;
 
-describe('helpers/user', () => {
+describe('helpers/logout', () => {
   it('should return a correct logout url to call the API "/api/v1/logout"', () => {
     // Setup
     const expectedUrl = `${config.FC_URL}/api/v1/logout?id_token_hint=${idHintToken.getHintToken()}`
