@@ -43,7 +43,7 @@ exports.getAccessToken = async (res, queryCode) => {
   await axios.post(url, querystring.stringify(body), headerConfig)
     .then(response => response.data)
     .then((tokenData) => {
-
+      console.log(tokenData)
       idHintToken.setHintToken(tokenData.id_token);
       /**
        * Use to send the access token to an data provider.

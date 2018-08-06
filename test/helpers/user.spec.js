@@ -12,7 +12,6 @@ chai.should();
 chai.use(sinonChai);
 
 const assert = chai.assert;
-const expect = chai.expect;
 
 describe('helpers/user', () => {
   beforeEach(() => {
@@ -22,7 +21,7 @@ describe('helpers/user', () => {
     userInfoHelper.getUserInfo.restore(); // Unwraps the spy
   });
 
-  it('getUser() should call the France Connect API "/api/v1/userinfo" endpoint and get the response.body.data should be an object', () => {
+  it('getUser() should call the "/api/v1/userinfo" endpoint and get the response.body.data should be an object', () => {
     // Setup
     const response = {
       status: '200',
