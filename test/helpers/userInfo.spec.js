@@ -43,7 +43,6 @@ describe('helpers/userInfo', () => {
     // Assert
     userInfoHelper.getUserInfo.should.have.callCount(1);
     assert.deepEqual(userInfo, expectedResponse);
-
   });
 
   it(' sendUserInfo() function should return user informations', () => {

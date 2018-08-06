@@ -8,6 +8,9 @@ import userInfosHelper from "./userInfo";
 import config from '../config/config.json';
 
 exports.getUser = async (token, res) => {
+  if (!token) {
+    res.sendStatus('401','Unauthorize :  Missing or wrong token');
+  }
   // Set request header
   const headerConfig = {
     headers: {
