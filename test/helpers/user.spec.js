@@ -120,7 +120,8 @@ describe('helpers/user', () => {
       .get('/api/v1/userinfo', {
         reqheaders: {
           'authorization': 'Bearer UEYRR764535REFFDTSUJX'
-        })
+        }
+      })
       .reply(200, response);
     // Assert
     assert.typeOf(res.body.data, 'object');
