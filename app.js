@@ -4,12 +4,12 @@
  */
 import express from 'express';
 import logger from 'morgan';
-import indexRoute from './routes/index';
-import logingRoute from './routes/login';
-import callbackRoute from './routes/callback';
-import profileRoute from './routes/profile';
-import logoutRoute from './routes/logout';
-import endRoute from './routes/end';
+
+import userInfosHelper from './helpers/userInfo';
+import idHintHelper from './helpers/idHintToken';
+import logoutHelper from './helpers/logout';
+import authorizationHelper from './helpers/authorization';
+import getAccessTokenHelper from './helpers/accessToken';
 
 const app = express();
 const port = process.env.PORT || '3000';
@@ -27,12 +27,40 @@ app.use(express.static('public'));
 /**
  * Routes
  */
-app.use('/', indexRoute);
-app.use('/login', logingRoute);
-app.use('/callback', callbackRoute);
-app.use('/profile', profileRoute);
-app.use('/logout', logoutRoute);
-app.use('/end', endRoute);
+app.get('/', (req, res) => {
+  res.render('pages/index');
+});
+
+app.get('/login', (req, res) => {
+  res.redirect(authorizationHelper.getAuth());
+});
+
+app.get('/callback', (req, res) => {
+  // check if the mandatory Authorization code is there.
+  if (!req.query.code) {
+    res.sendStatus(400);
+  }
+  getAccessTokenHelper.getAccessToken(res, req.query.code);
+});
+
+app.get('/profile', (req, res) => {
+  /**
+   * Getting the user informations by calling helpers/userInfo.
+   * @type {{}}
+   */
+  const user = userInfosHelper.sendUserInfo();
+  res.render('pages/profile', { user });
+});
+
+app.get('/logout', (req, res) => {
+  res.redirect(logoutHelper.logout());
+});
+
+app.get('/end', (req, res) => {
+  // resetting the id token hint.
+  idHintHelper.resetHintToken();
+  res.render('pages/end');
+});
 
 const server = app.listen(port);
 

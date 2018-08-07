@@ -23,4 +23,7 @@ exports.getHintToken = () => idHintToken;
  * Reset idHintToken after logout
  * @returns {null}
  */
-exports.resetHintToken = () => idHintToken = null;
+exports.resetHintToken = () => {
+  idHintToken = null;
+  return idHintToken;
+};
