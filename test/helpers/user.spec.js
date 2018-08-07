@@ -42,8 +42,13 @@ describe('helpers/user', () => {
     };
     // Action
     userHelper.getUser(token, res);
+
     return nock(config.FC_URL)
-      .get('/api/v1/userinfo')
+      .get('/api/v1/userinfo', {
+        reqheaders: {
+          'authorization': 'Bearer UEYRR764535REFFDTSUJX'
+        }
+      })
       .reply(200, response);
     // Assert
     assert.typeOf(response.body.data, 'object');
@@ -71,7 +76,11 @@ describe('helpers/user', () => {
     // Action
     userHelper.getUser(token, res);
     return nock(config.FC_URL)
-      .get('/api/v1/userinfo')
+      .get('/api/v1/userinfo', {
+        reqheaders: {
+          'authorization': 'Bearer UEYRR764535REFFDTSUJX'
+        }
+      })
       .reply(200, response);
     // Assert
     assert.isNotNull(res.body.data);
@@ -108,7 +117,10 @@ describe('helpers/user', () => {
     // Action
     userHelper.getUser(token, res);
     return nock(config.FC_URL)
-      .get('/api/v1/userinfo')
+      .get('/api/v1/userinfo', {
+        reqheaders: {
+          'authorization': 'Bearer UEYRR764535REFFDTSUJX'
+        })
       .reply(200, response);
     // Assert
     assert.typeOf(res.body.data, 'object');
