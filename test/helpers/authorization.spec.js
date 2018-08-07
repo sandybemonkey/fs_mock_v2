@@ -1,14 +1,7 @@
 /* eslint-env mocha */
-import chai from 'chai';
-import sinon from 'sinon';
-import sinonChai from 'sinon-chai';
-import  authorizationHelper from '../../helpers/authorization';
+import { assert } from 'chai';
+import authorizationHelper from '../../helpers/authorization';
 import config from '../../config/config.json';
-
-chai.should();
-chai.use(sinonChai);
-
-const assert = chai.assert;
 
 describe('helpers/authorization', () => {
   it('should return a correct authorization url to call the API "/api/v1/authorize"', () => {

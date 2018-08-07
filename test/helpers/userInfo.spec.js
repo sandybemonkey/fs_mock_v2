@@ -2,39 +2,40 @@
 import chai from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import  userInfoHelper from '../../helpers/userInfo';
+import userInfoHelper from '../../helpers/userInfo';
+
 chai.should();
 chai.use(sinonChai);
-const assert = chai.assert;
+const { assert } = chai;
 
 describe('helpers/userInfo', () => {
   beforeEach(() => {
     sinon.spy(userInfoHelper, 'getUserInfo');
   });
 
-  afterEach(() =>{
+  afterEach(() => {
     userInfoHelper.getUserInfo.restore(); // Unwraps the spy
   });
 
   it('getUserInfo() function should set an userInfo object with the response from France Connect "/api/v1/userinfo" endpoint', () => {
     // Setup
     const endPointResponse = {
-      given_name : 'Eric',
-      family_name : 'Mercier',
+      given_name: 'Eric',
+      family_name: 'Mercier',
       preferred_username: '',
-      gender : 'Male',
-      birthdate : '1990-12-05',
-      birthplace : '91272',
-      birthcountry : '99100',
+      gender: 'Male',
+      birthdate: '1990-12-05',
+      birthplace: '91272',
+      birthcountry: '99100',
     };
     const expectedResponse = {
-      name : 'Eric',
-      lastName : 'Mercier',
+      name: 'Eric',
+      lastName: 'Mercier',
       username: '',
-      gender : 'Male',
-      birthdate : '1990-12-05',
-      birthplace : '91272',
-      country : '99100',
+      gender: 'Male',
+      birthdate: '1990-12-05',
+      birthplace: '91272',
+      country: '99100',
     };
     // Action
     userInfoHelper.getUserInfo(endPointResponse);
@@ -48,22 +49,22 @@ describe('helpers/userInfo', () => {
   it(' sendUserInfo() function should return user informations', () => {
     // Setup
     const endPointResponse = {
-      given_name : 'Eric',
-      family_name : 'Mercier',
+      given_name: 'Eric',
+      family_name: 'Mercier',
       preferred_username: '',
-      gender : 'Male',
-      birthdate : '1990-12-05',
-      birthplace : '91272',
-      birthcountry : '99100',
+      gender: 'Male',
+      birthdate: '1990-12-05',
+      birthplace: '91272',
+      birthcountry: '99100',
     };
     const expectedResponse = {
-      name : 'Eric',
-      lastName : 'Mercier',
+      name: 'Eric',
+      lastName: 'Mercier',
       username: '',
-      gender : 'Male',
-      birthdate : '1990-12-05',
-      birthplace : '91272',
-      country : '99100',
+      gender: 'Male',
+      birthdate: '1990-12-05',
+      birthplace: '91272',
+      country: '99100',
     };
     sinon.spy(userInfoHelper, 'sendUserInfo');
 
