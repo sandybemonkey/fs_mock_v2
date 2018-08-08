@@ -11,12 +11,20 @@ import getAccessTokenHelper from './helpers/accessToken';
 
 const app = express();
 const port = process.env.PORT || '3000';
+
+/**
+ * session config
+ * @type {{secret: string, cookie: {}, saveUninitialized: boolean}}
+ */
 const sess = {
   secret: 'demo secret', // put your own secret
   cookie: {},
   saveUninitialized: true,
 };
 
+/**
+ * session config for production
+ */
 if (app.get('env') === 'production') {
   app.set('trust proxy', 1); // trust first proxy
   sess.cookie.secure = true; // serve secure cookies
@@ -39,10 +47,16 @@ app.get('/', (req, res) => {
   res.render('pages/index');
 });
 
+/**
+ * Init authorization and login process
+ */
 app.get('/login', (req, res) => {
   res.redirect(utilsHelper.getAuthorizationUrl());
 });
 
+/**
+ * Getting the access token required to get the user data
+ */
 app.get('/callback', (req, res) => {
   // check if the mandatory Authorization code is there.
   if (!req.query.code) {
@@ -60,6 +74,9 @@ app.get('/profile', (req, res) => {
   res.render('pages/profile', { user });
 });
 
+/**
+ * Init logout process
+ */
 app.get('/logout', (req, res) => {
   res.redirect(utilsHelper.getLogoutUrl(req));
 });
