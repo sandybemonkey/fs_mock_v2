@@ -44,6 +44,7 @@ exports.getAccessToken = async (res, req) => {
       req.session.id_token = tokenData.id_token;
       /**
        * Use to send the access token to an data provider.
+       * @return an object of data from the provider.
        * @see @link{ https://partenaires.franceconnect.gouv.fr/fcp/fournisseur-service# }
        * @see @link{ https://partenaires.franceconnect.gouv.fr/fcp/fournisseur-donnees }
        * @see @link{ https://github.com/france-connect/data-providers-examples }

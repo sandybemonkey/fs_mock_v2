@@ -14,4 +14,19 @@ describe('helpers/authorization', () => {
     // Assert
     assert.deepEqual(helperResponse, expectedUrl);
   });
+
+  it('should return a correct logout url to call the API "/api/v1/logout"', () => {
+    const req = {
+      session: {
+        id_token : "id token"
+      },
+    };
+    // Setup
+    const expectedUrl = `${config.LOGOUT_URL}?id_token_hint=${req.session.id_token}`
+      + `&state=${config.STATE}&post_logout_redirect_uri=${config.LOGOUT_REDIRECT_URL}`;
+    // Action
+    const helperResponse = UtilsHelper.getLogoutUrl(req);
+    // Assert
+    assert.deepEqual(helperResponse, expectedUrl);
+  });
 });
