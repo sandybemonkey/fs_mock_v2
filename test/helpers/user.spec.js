@@ -17,6 +17,15 @@ describe('helpers/user', () => {
         done();
       });
   });
+  it('getUser() should call the "/api/v1/userinfo" with wrong Authorization is not Bearer. Endpoint: response status 400', () => {
+    chai.request(config.FC_URL)
+      .get(config.USERINFO_URL)
+      .set('Authorization', 'Basic 0631752ca22134a1433a6ca951fee85')
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        done();
+      });
+  });
 
   it('getUser() should call the "/api/v1/userinfo" with wrong access token. Endpoint: response status 400', () => {
     chai.request(config.FC_URL)
@@ -28,12 +37,21 @@ describe('helpers/user', () => {
       });
   });
 
+  it('getUser() should call the "/api/v1/userinfo" with no access token. Endpoint: response status 400', () => {
+    chai.request(config.FC_URL)
+      .get(config.USERINFO_URL)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        done();
+      });
+  });
+
   it('getUser() should call the "/api/v1/userinfo". Endpoint response.body.data should be an object', () => {
     chai.request(config.FC_URL)
       .get(config.USERINFO_URL)
       .set('Authorization', 'Bearer 0631752ca22134a1433a6ca951fee85dfd7fe9ac93e2d67d230ad935e8106423')
       .end((err, res) => {
-        expect(res.body).to.be.an('object');
+        expect(res.data).to.be.an('object');
         done();
       });
   });
@@ -44,7 +62,7 @@ describe('helpers/user', () => {
       .get(config.USERINFO_URL)
       .set('Authorization', 'Bearer 0631752ca22134a1433a6ca951fee85dfd7fe9ac93e2d67d230ad935e8106423')
       .end((err, res) => {
-        expect(res.body).to.not.equal(null);
+        expect(res.data).to.not.equal(null);
         done();
       });
   });

@@ -19,6 +19,7 @@ exports.getUser = async (req, res) => {
     .then((response) => {
       // Helper to set userInfo value available to the profile page.
       req.session.userInfo = response.data;
+
       res.redirect('profile');
     })
     .catch(err => res.send(err.message));

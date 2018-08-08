@@ -66,10 +66,6 @@ app.get('/callback', (req, res) => {
 });
 
 app.get('/profile', (req, res) => {
-  /**
-   * Getting the user informations by calling helpers/userInfo.
-   * @type {{}}
-   */
   const user = req.session.userInfo;
   res.render('pages/profile', { user });
 });
