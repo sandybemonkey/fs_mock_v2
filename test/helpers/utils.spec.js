@@ -18,7 +18,7 @@ describe('helpers/authorization', () => {
   it('should return a correct logout url to call the API "/api/v1/logout"', () => {
     const req = {
       session: {
-        id_token : "id token"
+        id_token: 'id token',
       },
     };
     // Setup
