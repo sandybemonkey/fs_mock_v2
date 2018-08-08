@@ -8,20 +8,15 @@
             <div class="subtitle">
                 <div class="card">
                     <div class="card-content">
-                        <div id="fconnect-profile" data-fc-logout-url="/logout">
-                            <a href="#" class="has-text-link">
-                                <%= user.lastName %> <%= user.name %>
-                            </a>
-                        </div>
                         <div class="content">
+                            <div id="fconnect-profile" data-fc-logout-url="/logout">
+                                <a href="#" class="has-text-link">
+                                    <%= user.family_name %> <%= user.given_name %>
+                                </a>
+                            </div>
                             <div class="container has-text-centered">
-                                <%if (user.username) { %>
-                                    <p><b>Username : </b><%= user.username %></p>
-                                <% } %>
-                                <p><b>Sexe : </b><%= user.gender %></p>
-                                <time datetime="2016-1-1"><b>Date de naissance : </b><%= user.birthdate %></time>
-                                <p><b>Code du lieux de naissance : </b><%= user.birthplace %></p>
-                                <p><b>Code du pays de naissance : </b><%= user.country %></p>
+                                <p> Votre connexion au Guichet Chiroquois, via France Connect, est un succès</p>
+                                <p> Utiliser le button en haut gauche (avec votre nom et prénom), afin accèder à votre historique de connexion et au bouton de deconnexion .</p>
                             </div>
                         </div>
                     </div>

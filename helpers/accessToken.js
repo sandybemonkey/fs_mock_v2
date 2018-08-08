@@ -5,22 +5,20 @@
 import axios from 'axios';
 import querystring from 'querystring';
 import getUserHelper from './user';
-import idHintToken from './idHintToken';
 import config from '../config/config.json';
 
 const sendTokenToFD = false;
+const tokenUrl = config.TOKEN_URL;
+const redirectUrl = config.REDIRECT_URL;
+const clientId = config.CLIENT_SECRET;
+const secretKey = config.SECRET_KEY;
 
 /**
  * Init FranceConnect authentication login process.
  * Make every http call to the different API endpoints.
  * @see @link{ https://partenaires.franceconnect.gouv.fr/fcp/fournisseur-service# }
  */
-exports.getAccessToken = async (res, queryCode) => {
-  const tokenUrl = config.TOKEN_URL;
-  const redirectUrl = config.REDIRECT_URL;
-  const clientId = config.CLIENT_SECRET;
-  const secretKey = config.SECRET_KEY;
-
+exports.getAccessToken = async (res, req) => {
   // Set request params.
   const url = tokenUrl;
   const body = {
@@ -28,7 +26,7 @@ exports.getAccessToken = async (res, queryCode) => {
     redirect_uri: redirectUrl,
     client_id: clientId,
     client_secret: secretKey,
-    code: queryCode,
+    code: req.query.code,
   };
   const headerConfig = {
     headers: {
@@ -42,7 +40,8 @@ exports.getAccessToken = async (res, queryCode) => {
   await axios.post(url, querystring.stringify(body), headerConfig)
     .then(response => response.data)
     .then((tokenData) => {
-      idHintToken.setHintToken(tokenData.id_token);
+      req.accessToken = tokenData.access_token;
+      req.session.id_token = tokenData.id_token;
       /**
        * Use to send the access token to an data provider.
        * @see @link{ https://partenaires.franceconnect.gouv.fr/fcp/fournisseur-service# }
@@ -64,7 +63,7 @@ exports.getAccessToken = async (res, queryCode) => {
       /**
        * Make a call to the France Connect API endpoint to get user data.
        */
-      getUserHelper.getUser(tokenData.access_token, res);
+      getUserHelper.getUser(req, res);
     })
     .catch(err => res.send(err.message));
 };

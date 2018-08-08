@@ -1,8 +1,6 @@
 /* eslint-env mocha */
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import sinon from 'sinon';
-import userInfoHelper from '../../helpers/userInfo';
 import config from '../../config/config.json';
 
 chai.use(chaiHttp);
@@ -10,12 +8,6 @@ const { expect } = chai;
 const { done } = chai;
 
 describe('helpers/user', () => {
-  beforeEach(() => {
-    sinon.spy(userInfoHelper, 'getUserInfo');
-  });
-  afterEach(() => {
-    userInfoHelper.getUserInfo.restore(); // Unwraps the spy
-  });
   it('getUser() should call the "/api/v1/userinfo" endpoint to send a status 200', () => {
     chai.request(config.FC_URL)
       .get(config.USERINFO_URL)

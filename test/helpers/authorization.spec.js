@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import { assert } from 'chai';
-import authorizationHelper from '../../helpers/authorization';
+import UtilsHelper from '../../helpers/utils';
 import config from '../../config/config.json';
 
 describe('helpers/authorization', () => {
@@ -10,7 +10,7 @@ describe('helpers/authorization', () => {
       + `&client_id=${config.CLIENT_SECRET}&redirect_uri=${config.REDIRECT_URL}`
       + `&scope=${config.SCOPE}&state=${config.STATE}&nonce=${config.NONCE}`;
     // Action
-    const helperResponse = authorizationHelper.getAuth();
+    const helperResponse = UtilsHelper.getAuthorizationUrl();
     // Assert
     assert.deepEqual(helperResponse, expectedUrl);
   });

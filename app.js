@@ -4,15 +4,23 @@
  */
 import express from 'express';
 import logger from 'morgan';
+import session from 'express-session';
 
-import userInfosHelper from './helpers/userInfo';
-import idHintHelper from './helpers/idHintToken';
-import logoutHelper from './helpers/logout';
-import authorizationHelper from './helpers/authorization';
+import utilsHelper from './helpers/utils';
 import getAccessTokenHelper from './helpers/accessToken';
 
 const app = express();
 const port = process.env.PORT || '3000';
+const sess = {
+  secret: 'demo secret', // put your own secret
+  cookie: {},
+  saveUninitialized: true,
+};
+
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1); // trust first proxy
+  sess.cookie.secure = true; // serve secure cookies
+}
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(logger('dev'));
@@ -22,7 +30,7 @@ app.set('view engine', 'ejs');
 app.set('port', port);
 
 app.use(express.static('public'));
-
+app.use(session(sess));
 
 /**
  * Routes
@@ -32,7 +40,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.redirect(authorizationHelper.getAuth());
+  res.redirect(utilsHelper.getAuthorizationUrl());
 });
 
 app.get('/callback', (req, res) => {
@@ -40,7 +48,7 @@ app.get('/callback', (req, res) => {
   if (!req.query.code) {
     res.sendStatus(400);
   }
-  getAccessTokenHelper.getAccessToken(res, req.query.code);
+  getAccessTokenHelper.getAccessToken(res, req);
 });
 
 app.get('/profile', (req, res) => {
@@ -48,17 +56,18 @@ app.get('/profile', (req, res) => {
    * Getting the user informations by calling helpers/userInfo.
    * @type {{}}
    */
-  const user = userInfosHelper.sendUserInfo();
+  const user = req.session.userInfo;
   res.render('pages/profile', { user });
 });
 
 app.get('/logout', (req, res) => {
-  res.redirect(logoutHelper.logout());
+  res.redirect(utilsHelper.getLogoutUrl(req));
 });
 
 app.get('/end', (req, res) => {
   // resetting the id token hint.
-  idHintHelper.resetHintToken();
+  req.session.id_token = null;
+  req.session.userInfo = null;
   res.render('pages/end');
 });
 
