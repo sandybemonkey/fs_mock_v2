@@ -7,7 +7,10 @@ import axios from 'axios';
 import config from '../config/config.json';
 
 exports.getUser = async (req, res) => {
-  if (!req.accessToken) res.status(401).send('Access token is required');
+  if (!req.accessToken) {
+    res.status(401).send('Access token is required');
+    return;
+  };
   // Set request header
   const headerConfig = {
     headers: {
