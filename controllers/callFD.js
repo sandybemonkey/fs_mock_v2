@@ -8,8 +8,10 @@ import axios from "axios/index";
 import config from '../config/config.json';
 
 const fdMockUrl = config.FD_MOCK_URL;
+// this value is only for a demo purpose you should use the Access token send by FC
+const fakeAccessToken = '9af033eb295d0fe113988d29a26527f920114973b3a1ca7bdb44768fd0c73937'
 
-export const getFDData=  (tokenData) => {
+export const getFDData=  (req, res) => {
   axios({
     method: 'GET',
     /**
@@ -17,11 +19,18 @@ export const getFDData=  (tokenData) => {
      * If use using your code change the url's value.
      */
     url: fdMockUrl,
-    headers: { Authorization: `Bearer ${tokenData.access_token}` },
+    headers: { Authorization: `Bearer ${fakeAccessToken}` },
   })
     .then((fdResponse) => {
-      console.info('[INFO] request to Data Provider done. Data Provider response :' );
-      console.info(`[INFO] ${fdResponse}`);
+      const isFdData = true;
+      const isAuth = true;
+      const user = req.session.userInfo;
+      const dgfipData = [];
+
+      for(var property in fdResponse.data) {
+        dgfipData[property] = fdResponse.data[property];
+      }
+      res.render('pages/profile', { user, isAuth, isFdData, dgfipData });
     })
     .catch(err => res.send(err.message));
 }
