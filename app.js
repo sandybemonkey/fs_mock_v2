@@ -6,8 +6,9 @@ import express from 'express';
 import logger from 'morgan';
 import session from 'express-session';
 
-import { getAuthorizationUrl, getLogoutUrl} from './helpers/utils';
-import { getAccessToken } from './controllers/accessToken';
+import { getAuthorizationUrl, getLogoutUrl } from './helpers/utils';
+import getAccessToken from './controllers/accessToken';
+import getFDData from './controllers/callFD';
 
 const app = express();
 
@@ -25,7 +26,7 @@ const sessionConfig = {
 // session config for production
 if (app.get('env') === 'production') {
   app.set('trust proxy', 1); // trust first proxy
-  sess.cookie.secure = true; // serve secure cookies
+  sessionConfig.cookie.secure = true; // serve secure cookies
 }
 
 if (process.env.NODE_ENV !== 'test') {
@@ -38,7 +39,8 @@ app.use(session(sessionConfig));
 
 // Routes (@see @link{ see https://expressjs.com/en/guide/routing.html }
 app.get('/', (req, res) => {
-  res.render('pages/index');
+  const isAuth = false;
+  res.render('pages/index', { isAuth });
 });
 app.get('/login', (req, res) => {
   res.redirect(getAuthorizationUrl());
@@ -51,17 +53,23 @@ app.get('/callback', (req, res) => {
   getAccessToken(res, req);
 });
 app.get('/profile', (req, res) => {
+  const isAuth = true;
   const user = req.session.userInfo;
-  res.render('pages/profile', { user });
+  const isFdData = false;
+  res.render('pages/profile', { user, isAuth, isFdData });
+});
+app.get('/callFd', (req, res) => {
+  getFDData(req, res);
 });
 app.get('/logout', (req, res) => {
   res.redirect(getLogoutUrl(req));
 });
-app.get('/end', (req, res) => {
+app.get('/logged-out', (req, res) => {
+  const isAuth = false;
   // resetting the id token hint.
   req.session.id_token = null;
   req.session.userInfo = null;
-  res.render('pages/logged-out');
+  res.render('pages/logged-out', { isAuth });
 });
 
 // Starting server

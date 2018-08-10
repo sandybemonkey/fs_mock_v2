@@ -4,11 +4,8 @@
  */
 import axios from 'axios';
 import querystring from 'querystring';
-import { getUser } from '../helpers/user';
-import { getFDData } from '../helpers/callFD';
+import getUser from '../helpers/user';
 import config from '../config/config.json';
-
-const sendTokenToFD = false;
 
 const tokenUrl = config.TOKEN_URL;
 const redirectUrl = config.REDIRECT_URL;
@@ -19,7 +16,7 @@ const secretKey = config.SECRET_KEY;
  * Init FranceConnect authentication login process.
  * Make every http call to the different API endpoints.
  */
-export const getAccessToken = async (res, req) => {
+const getAccessToken = async (res, req) => {
   // Set request params.
   const url = tokenUrl;
   const body = {
@@ -41,13 +38,10 @@ export const getAccessToken = async (res, req) => {
     .then((tokenData) => {
       req.accessToken = tokenData.access_token;
       req.session.id_token = tokenData.id_token;
-      // Use to send the access token to an data provider.
-      if (sendTokenToFD) {
-        getFDData(tokenData);
-      }
       // Make a call to the France Connect API endpoint to get user data.
       getUser(req, res);
     })
     .catch(err => res.send(err.message));
 };
 
+export default getAccessToken;

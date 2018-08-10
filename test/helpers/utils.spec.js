@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import { assert } from 'chai';
-import UtilsHelper from '../../helpers/utils';
+import { getAuthorizationUrl, getLogoutUrl } from '../../helpers/utils';
 import config from '../../config/config.json';
 
 describe('helpers/authorization', () => {
@@ -8,9 +8,9 @@ describe('helpers/authorization', () => {
     // Setup
     const expectedUrl = `${config.AUTHORIZATION_URL}?response_type=code`
       + `&client_id=${config.CLIENT_SECRET}&redirect_uri=${config.REDIRECT_URL}`
-      + `&scope=${config.SCOPE}&state=${config.STATE}&nonce=${config.NONCE}`;
+      + `&scope=${config.SCOPE}&state=customState11&nonce=customNonce11`;
     // Action
-    const helperResponse = UtilsHelper.getAuthorizationUrl();
+    const helperResponse = getAuthorizationUrl();
     // Assert
     assert.deepEqual(helperResponse, expectedUrl);
   });
@@ -23,9 +23,9 @@ describe('helpers/authorization', () => {
     };
     // Setup
     const expectedUrl = `${config.LOGOUT_URL}?id_token_hint=${req.session.id_token}`
-      + `&state=${config.STATE}&post_logout_redirect_uri=${config.LOGOUT_REDIRECT_URL}`;
+      + `&state=customState11&post_logout_redirect_uri=${config.LOGOUT_REDIRECT_URL}`;
     // Action
-    const helperResponse = UtilsHelper.getLogoutUrl(req);
+    const helperResponse = getLogoutUrl(req);
     // Assert
     assert.deepEqual(helperResponse, expectedUrl);
   });
